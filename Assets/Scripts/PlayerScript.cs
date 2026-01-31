@@ -10,11 +10,21 @@ public class PlayerScript : MonoBehaviour
 
     [Space]
     // Movement Data Record
-    private int movementDataRecordLength = 5; 
+    public int movementDataRecordLength = 5;
     //  We maintain a list of characters representing player inputs on movement
-    private List<char> movementData = new List<char>();
+    public Queue<char> movementData = new Queue<char>();
 
-    
+    [Space]
+    // Behavior Data Record
+    public int behaviorDataRecordLength = 5;
+    //  We maintain a list of characters representing player inputs on movement
+    public Queue<char> behaviorData = new Queue<char>();
+
+    [Space]
+    // Mask Data
+    public int maskIndex = 0;
+    public int maskCount = 3;
+
 
     // Start is called before the first frame update
     void Start()
@@ -31,5 +41,61 @@ public class PlayerScript : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontalInput, verticalInput, 0);
         transform.Translate(movement * speed * Time.deltaTime);
+
+        // Movement Record
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            movementData.Enqueue('W');
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            movementData.Enqueue('A');
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            movementData.Enqueue('S');
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            movementData.Enqueue('D');
+        }
+        // Maintain fixed length of movement data record
+        if (movementData.Count > movementDataRecordLength)
+        {
+            movementData.Dequeue();
+        }
+
+        // behavior Record #SUBJECT TO CHANGE
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            behaviorData.Enqueue('J'); // Jump
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            behaviorData.Enqueue('A'); // Attack
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            behaviorData.Enqueue('I'); // Interact
+        }
+        // Maintain fixed length of behavior data record
+        if (behaviorData.Count > behaviorDataRecordLength)
+        {
+            behaviorData.Dequeue();
+        }
+
+        // Mask rolling (from 0 to maskCount-1 then to 0)
+        bool maskRollTrigger = Input.GetButtonDown("Jump");
+        if (maskRollTrigger)
+        {
+            if (maskIndex < maskCount - 1)
+            {
+                maskIndex++;
+            }
+            else
+            {
+                maskIndex = 0;
+            }
+        }
     }
 }
