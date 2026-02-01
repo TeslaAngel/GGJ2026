@@ -24,12 +24,20 @@ public class PlayerScript : MonoBehaviour
     // Mask Data
     public int maskIndex = 0;
     public int maskCount = 3;
+    public bool[] maskEnable;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // init & disable all masks
+        maskEnable = new bool[maskCount+1];
+        for (int i = 0; i < maskCount; i++)
+        {
+            maskEnable[i] = false;
+        }
+        // 0 is no mask, always availables
+        maskEnable[0] = true;
     }
 
     // Update is called once per frame
@@ -84,18 +92,19 @@ public class PlayerScript : MonoBehaviour
             behaviorData.Dequeue();
         }
 
-        // Mask rolling (from 0 to maskCount-1 then to 0)
+        // Mask rolling (from 0 (no mask) to maskCount then to 0, skip any mask that's not enabled)
         bool maskRollTrigger = Input.GetButtonDown("Jump");
         if (maskRollTrigger)
         {
-            if (maskIndex < maskCount - 1)
+            int startIndex = maskIndex;
+
+            do
             {
-                maskIndex++;
-            }
-            else
-            {
-                maskIndex = 0;
-            }
+                maskIndex = (maskIndex + 1) % maskEnable.Length;
+                if (maskEnable[maskIndex])
+                    break;
+
+            } while (maskIndex != startIndex);
         }
     }
 }
