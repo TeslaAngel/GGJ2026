@@ -9,6 +9,7 @@ public class GameManagerScript : MonoBehaviour
     private Transform playerTransform;
     private PlayerScript playerScript;
 
+    [Space]
     // Monster Data
     public GameObject monsterObject;
     private Transform monsterTransform;
@@ -16,6 +17,7 @@ public class GameManagerScript : MonoBehaviour
     private float monsterObservationRange;
     public float coolDownAccelerationFactor = 2.0f;
 
+    [Space]
     // Map Generation
     public float mapWidth = 100.0f;
     public float mapHeight = 100.0f;
@@ -25,9 +27,11 @@ public class GameManagerScript : MonoBehaviour
     public GameObject[] creatureBeaconPrefabs;
     private List<GameObject> activeCreatureBeacons = new List<GameObject>();
 
+    [Space]
     public float winTimerLimit = 180.0f; // 3-1 minutes to win
     public float winTimer = 60.0f;
 
+    [Space]
     public bool gameWon = false;
     public bool gameLost = false;
 
@@ -40,6 +44,22 @@ public class GameManagerScript : MonoBehaviour
         monsterScript = monsterObject.GetComponent<MonsterCooler>();
         monsterScript.target = playerTransform;
         monsterObservationRange = monsterScript.observationRange;
+
+        // Generate Creature Beacons at random positions
+        int numberOfBeacons = 10; // You can adjust the number of beacons
+        for (int i = 0; i < numberOfBeacons; i++)
+        {
+            // Randomly select a beacon prefab
+            int prefabIndex = Random.Range(0, creatureBeaconPrefabs.Length);
+            GameObject beaconPrefab = creatureBeaconPrefabs[prefabIndex];
+            // Random position within map bounds
+            float randomX = Random.Range(-mapWidth / 2, mapWidth / 2);
+            float randomY = Random.Range(-mapHeight / 2, mapHeight / 2);
+            Vector3 randomPosition = new Vector3(randomX, randomY, 0);
+            // Instantiate the beacon
+            GameObject beaconInstance = Instantiate(beaconPrefab, randomPosition, Quaternion.identity);
+            activeCreatureBeacons.Add(beaconInstance);
+        }
     }
 
     // Update is called once per frame
