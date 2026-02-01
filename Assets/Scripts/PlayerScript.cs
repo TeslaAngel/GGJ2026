@@ -41,11 +41,11 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // init & disable all masks
+        // init & enable all masks
         maskEnable = new bool[maskCount+1];
         for (int i = 0; i < maskCount; i++)
         {
-            maskEnable[i] = false;
+            maskEnable[i] = true;
         }
         // 0 is no mask, always availables
         maskEnable[0] = true;

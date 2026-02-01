@@ -6,6 +6,7 @@ public class CreatureBeaconScript : MonoBehaviour
 {
 
     public float range;
+    public int maskIndex;
 
     [Space]
     public List<char> behaviorData = new List<char>();

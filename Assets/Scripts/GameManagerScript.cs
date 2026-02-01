@@ -125,7 +125,7 @@ public class GameManagerScript : MonoBehaviour
 
                 float distancePlayerBeacon = Vector3.Distance(playerObject.transform.position, activeCreatureBeacons[i].transform.position);
                 CreatureBeaconScript beaconScript = activeCreatureBeacons[i].GetComponent<CreatureBeaconScript>();
-                if (distancePlayerBeacon <= beaconScript.range)
+                if (distancePlayerBeacon <= beaconScript.range && playerScript.maskIndex == beaconScript.maskIndex)
                 {
                     //DEBUG
                     Debug.Log("Player within range of beacon " + i);

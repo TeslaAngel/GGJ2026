@@ -224,12 +224,14 @@ MonoBehaviour:
   speed: 5
   verticalSpeedModifier: 1
   movementDataRecordLength: 5
+  movementData: 
   movementCooldown: 1
   behaviorDataRecordLength: 5
+  behaviorData: 
   behaviorCooldown: 1
   maskIndex: 0
   maskCount: 3
-  maskEnable: 000000
+  maskEnable: 01010101
   sprites: []
 --- !u!58 &594012059
 CircleCollider2D:

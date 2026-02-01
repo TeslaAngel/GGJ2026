@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 3
+  maskIndex: 1
   behaviorData: 4a004c004a004c004a00
   movementData: 
 --- !u!1 &5948356562721763224
