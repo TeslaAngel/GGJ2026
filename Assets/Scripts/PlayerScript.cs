@@ -113,6 +113,17 @@ public class PlayerScript : MonoBehaviour
                 movementCooldownTimer = 0.0f;
             }
         }
+
+        // set animator walking parameter
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("Walking", true);
+        }
+        else
+        {
+            animator.SetBool("Walking", false);
+        }
+
         // Maintain fixed length of movement data record
         while (movementData.Count > movementDataRecordLength)
         {
