@@ -156,6 +156,7 @@ public class GameManagerScript : MonoBehaviour
                     else
                     if (playerScript.behaviorData.Count > 0 && beaconScript.behaviorData.Count > 0)
                     {
+                        Debug.Log("Comparing Player Behavior with Beacon Behavior");
                         if (playerScript.behaviorData.SequenceEqual(beaconScript.behaviorData))
                         {
                             behaviorImitationCorrect = true;
