@@ -18,11 +18,17 @@ public class MonsterCooler : MonoBehaviour
     [Space]
     public float timeRemaining = 10f; // The initial countdown time in seconds
 
+    [Space]
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         // set navmeshagent
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        // set animator
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -63,6 +69,12 @@ public class MonsterCooler : MonoBehaviour
         {
             navMeshAgent.speed = fastSpeed;
         }
+
+        // Trigger fast chasing animation
+        if (animator != null)
+        {
+            animator.SetBool("isRunning", true);
+        }
     }
 
     public void SetSpeedSlow()
@@ -70,6 +82,12 @@ public class MonsterCooler : MonoBehaviour
         if (navMeshAgent != null)
         {
             navMeshAgent.speed = slowSpeed;
+        }
+
+        // Trigger slow animation
+        if (animator != null)
+        {
+            animator.SetBool("isRunning", false);
         }
     }
 

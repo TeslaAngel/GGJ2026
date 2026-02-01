@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
+[RequireComponent (typeof(Animator))]
 public class PlayerScript : MonoBehaviour
 {
     // Movement Data
@@ -34,8 +36,8 @@ public class PlayerScript : MonoBehaviour
     public bool[] maskEnable;
 
     [Space]
-    // Animation
-    public Sprite[] sprites;
+    // Animation #SUBJECT TO CHANGE
+    private Animator animator; // we need the flexibility to change the style to any creature, maybe a tree?
 
 
     // Start is called before the first frame update
@@ -52,6 +54,9 @@ public class PlayerScript : MonoBehaviour
 
         // Rigidbody
         rigidBody2D = GetComponent<Rigidbody2D>();
+
+        // Animator #SUBJECT TO CHANGE
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -70,21 +75,33 @@ public class PlayerScript : MonoBehaviour
         {
             movementData.Add('W');
             movementCooldownTimer = 0.0f;
+
+            // sync changes to animator
+            animator.SetInteger("MoveDir", 1);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
             movementData.Add('A');
             movementCooldownTimer = 0.0f;
+
+            // sync changes to animator
+            animator.SetInteger("MoveDir", 2);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             movementData.Add('S');
             movementCooldownTimer = 0.0f;
+
+            // sync changes to animator
+            animator.SetInteger("MoveDir", 3);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             movementData.Add('D');
             movementCooldownTimer = 0.0f;
+
+            // sync changes to animator
+            animator.SetInteger("MoveDir", 4);
         }
         // when player haven't moved in another direction for a while, record a 'no movement' character
         else
@@ -107,16 +124,25 @@ public class PlayerScript : MonoBehaviour
         {
             behaviorData.Add('I'); // jump behavior
             behaviorCooldownTimer = 0.0f;
+
+            // sync changes to animator
+            animator.SetTrigger("I");
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
             behaviorData.Add('J'); // left hand behavior
             behaviorCooldownTimer = 0.0f;
+
+            // sync changes to animator
+            animator.SetTrigger("J");
         }
         else if (Input.GetKeyDown(KeyCode.L))
         {
             behaviorData.Add('L'); // right hand behavior
             behaviorCooldownTimer = 0.0f;
+
+            // sync changes to animator
+            animator.SetTrigger("L");
         }
         // when player haven't performed any behavior for a while, record a 'no behavior' character
         else
@@ -143,6 +169,8 @@ public class PlayerScript : MonoBehaviour
             do
             {
                 maskIndex = (maskIndex + 1) % maskEnable.Length;
+                // sync changes to animator
+                animator.SetInteger("MaskIndex", maskIndex);
                 if (maskEnable[maskIndex])
                     break;
 
