@@ -47,11 +47,13 @@ public class GameManagerScript : MonoBehaviour
         float distancePlayerMonster = Vector3.Distance(playerObject.transform.position, monsterObject.transform.position);
 
         // Monster Behavior
-        //  Monster observation when player is within certain range
-        //  Monster accelerated cool down when player have wrong immitation
+        //  (done locally) Monster observation when player is within certain range
+        //  (done locally) Monster accelerated cool down when player have wrong immitation
+
+        // If player made a mistake, accelerate monster cool down
         if (distancePlayerMonster < monsterObservationRange)
         {
-            // Check Player Imitation
+            // TODO Check Player Imitation
             bool imitationCorrect = true;
             //  TODO Compare Player Movement Data with Monster Expected Movement Data
             //  TODO Compare Player Behavior Data with Monster Expected Behavior Data
@@ -60,12 +62,6 @@ public class GameManagerScript : MonoBehaviour
                 // Start or Accelerate Monster Cool Down
                 monsterScript.timeRemaining -= Time.deltaTime * 2; // Accelerate cool down
             }
-        }
-
-        //  Monster fast chase when cool down timer is up
-        if (monsterScript.timeRemaining <= 0)
-        {
-            // Chase Player
         }
 
         // Win Condition

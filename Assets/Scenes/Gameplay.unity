@@ -2974,7 +2974,6 @@ MonoBehaviour:
   fastSpeed: 5
   slowSpeed: 3
   timeRemaining: 10
-  timerIsRunning: 0
 --- !u!1 &1354337245
 GameObject:
   m_ObjectHideFlags: 0
@@ -3127,7 +3126,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObject: {fileID: 594012051}
   monsterObject: {fileID: 1109942484}
-  monsterObservationRange: 20
   mapWidth: 100
   mapHeight: 100
   creaturePrefab: {fileID: 0}
@@ -3339,6 +3337,63 @@ Transform:
   - {fileID: 1354337246}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6501948350691511122
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5507908171113149679, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_Name
+      value: CreatureBeaconTest
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3349,3 +3404,4 @@ SceneRoots:
   - {fileID: 2030006440}
   - {fileID: 1109942486}
   - {fileID: 1408239226}
+  - {fileID: 6501948350691511122}
