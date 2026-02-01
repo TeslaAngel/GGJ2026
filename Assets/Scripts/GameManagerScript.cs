@@ -46,19 +46,57 @@ public class GameManagerScript : MonoBehaviour
         monsterObservationRange = monsterScript.observationRange;
 
         // Generate Creature Beacons at random positions
-        int numberOfBeacons = 10; // You can adjust the number of beacons
+        int numberOfBeacons = 10;
+        float minDistance = 10f;
+        int maxAttemptsPerBeacon = 50;   // prevents infinite loops
+
+        List<Vector3> placedPositions = new List<Vector3>();
+
         for (int i = 0; i < numberOfBeacons; i++)
         {
-            // Randomly select a beacon prefab
-            int prefabIndex = Random.Range(0, creatureBeaconPrefabs.Length);
-            GameObject beaconPrefab = creatureBeaconPrefabs[prefabIndex];
-            // Random position within map bounds
-            float randomX = Random.Range(-mapWidth / 2, mapWidth / 2);
-            float randomY = Random.Range(-mapHeight / 2, mapHeight / 2);
-            Vector3 randomPosition = new Vector3(randomX, randomY, 0);
-            // Instantiate the beacon
-            GameObject beaconInstance = Instantiate(beaconPrefab, randomPosition, Quaternion.identity);
-            activeCreatureBeacons.Add(beaconInstance);
+            Vector3 candidatePos = Vector3.zero;
+            bool validPosition = false;
+
+            for (int attempt = 0; attempt < maxAttemptsPerBeacon; attempt++)
+            {
+                float randomX = Random.Range(-mapWidth / 2f, mapWidth / 2f);
+                float randomY = Random.Range(-mapHeight / 2f, mapHeight / 2f);
+                candidatePos = new Vector3(randomX, randomY, 0f);
+
+                // Check distance from all existing beacons
+                bool tooClose = false;
+                foreach (var pos in placedPositions)
+                {
+                    if (Vector3.Distance(candidatePos, pos) < minDistance)
+                    {
+                        tooClose = true;
+                        break;
+                    }
+                }
+
+                if (!tooClose)
+                {
+                    validPosition = true;
+                    break;
+                }
+            }
+
+            // Only place if we found a valid spot
+            if (validPosition)
+            {
+                int prefabIndex = Random.Range(0, creatureBeaconPrefabs.Length);
+                GameObject beaconPrefab = creatureBeaconPrefabs[prefabIndex];
+
+                GameObject beaconInstance =
+                    Instantiate(beaconPrefab, candidatePos, Quaternion.identity);
+
+                activeCreatureBeacons.Add(beaconInstance);
+                placedPositions.Add(candidatePos);
+            }
+            else
+            {
+                Debug.LogWarning("Could not find valid position for beacon after many attempts.");
+            }
         }
     }
 
