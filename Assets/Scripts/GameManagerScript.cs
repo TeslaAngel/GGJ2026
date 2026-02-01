@@ -14,6 +14,7 @@ public class GameManagerScript : MonoBehaviour
     private Transform monsterTransform;
     private MonsterCooler monsterScript;
     private float monsterObservationRange;
+    public float coolDownAccelerationFactor = 2.0f;
 
     // Map Generation
     public float mapWidth = 100.0f;
@@ -22,6 +23,7 @@ public class GameManagerScript : MonoBehaviour
 
     // creature Beacon Prefabs
     public GameObject[] creatureBeaconPrefabs;
+    private List<GameObject> activeCreatureBeacons = new List<GameObject>();
 
     public float winTimerLimit = 180.0f; // 3-1 minutes to win
     public float winTimer = 60.0f;
@@ -51,17 +53,41 @@ public class GameManagerScript : MonoBehaviour
         //  (done locally) Monster accelerated cool down when player have wrong immitation
 
         // If player made a mistake, accelerate monster cool down
-        if (distancePlayerMonster < monsterObservationRange)
+        bool imitationCorrect = false;
+        if (distancePlayerMonster <= monsterObservationRange)
         {
-            // TODO Check Player Imitation
-            bool imitationCorrect = true;
-            //  TODO Compare Player Movement Data with Monster Expected Movement Data
-            //  TODO Compare Player Behavior Data with Monster Expected Behavior Data
-            if (!imitationCorrect)
+            // Check Player Imitation with every beacon in range
+            for (int i = 0; i < activeCreatureBeacons.Count; i++)
             {
-                // Start or Accelerate Monster Cool Down
-                monsterScript.timeRemaining -= Time.deltaTime * 2; // Accelerate cool down
+                float distancePlayerBeacon = Vector3.Distance(playerObject.transform.position, activeCreatureBeacons[i].transform.position);
+                CreatureBeaconScript beaconScript = activeCreatureBeacons[i].GetComponent<CreatureBeaconScript>();
+                if (distancePlayerBeacon <= beaconScript.range)
+                {
+                    //  Compare Player Movement Data with Creature Beacon Expected Movement Data
+                    if(playerScript.movementData.Count > 0 && beaconScript.movementData.Count > 0)
+                    {
+                        if (playerScript.movementData.Equals(beaconScript.movementData))
+                        {
+                            imitationCorrect = true;
+                        }
+                    }
+
+                    //  Compare Player Behavior Data with Monster Expected Behavior Data
+                    if (playerScript.behaviorData.Count > 0 && beaconScript.behaviorData.Count > 0)
+                    {
+                        if (playerScript.behaviorData.Equals(beaconScript.behaviorData))
+                        {
+                            imitationCorrect = true;
+                        }
+                    }
+                }
             }
+        }
+
+        if (!imitationCorrect)
+        {
+            // Start or Accelerate Monster Cool Down
+            monsterScript.timeRemaining -= Time.deltaTime * coolDownAccelerationFactor; // Accelerate cool down
         }
 
         // Win Condition

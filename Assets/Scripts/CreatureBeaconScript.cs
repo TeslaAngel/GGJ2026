@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class CreatureBeaconScript : MonoBehaviour
 {
+
+    public float range;
+
+    [Space]
     public List<char>  initBehaviorData = new List<char>();
     public Queue<char> behaviorData = new Queue<char>();
 
