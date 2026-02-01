@@ -21,9 +21,11 @@ public class GameManagerScript : MonoBehaviour
     // Map Generation
     public float mapWidth = 100.0f;
     public float mapHeight = 100.0f;
-    public GameObject creaturePrefab;
+    //public GameObject creaturePrefab;
 
     // creature Beacon Prefabs
+    public int numberOfCreatureBeacons = 10;
+    public float minDistanceBetweenBeacons = 5f;
     public GameObject[] creatureBeaconPrefabs;
     private List<GameObject> activeCreatureBeacons = new List<GameObject>();
 
@@ -46,13 +48,11 @@ public class GameManagerScript : MonoBehaviour
         monsterObservationRange = monsterScript.observationRange;
 
         // Generate Creature Beacons at random positions
-        int numberOfBeacons = 10;
-        float minDistance = 10f;
         int maxAttemptsPerBeacon = 50;   // prevents infinite loops
 
         List<Vector3> placedPositions = new List<Vector3>();
 
-        for (int i = 0; i < numberOfBeacons; i++)
+        for (int i = 0; i < numberOfCreatureBeacons; i++)
         {
             Vector3 candidatePos = Vector3.zero;
             bool validPosition = false;
@@ -67,7 +67,7 @@ public class GameManagerScript : MonoBehaviour
                 bool tooClose = false;
                 foreach (var pos in placedPositions)
                 {
-                    if (Vector3.Distance(candidatePos, pos) < minDistance)
+                    if (Vector3.Distance(candidatePos, pos) < minDistanceBetweenBeacons)
                     {
                         tooClose = true;
                         break;
@@ -117,28 +117,50 @@ public class GameManagerScript : MonoBehaviour
             // Check Player Imitation with every beacon in range
             for (int i = 0; i < activeCreatureBeacons.Count; i++)
             {
+                bool movementImitationCorrect = false;
+                bool behaviorImitationCorrect = false;
+
                 float distancePlayerBeacon = Vector3.Distance(playerObject.transform.position, activeCreatureBeacons[i].transform.position);
                 CreatureBeaconScript beaconScript = activeCreatureBeacons[i].GetComponent<CreatureBeaconScript>();
                 if (distancePlayerBeacon <= beaconScript.range)
                 {
+                    //DEBUG
+                    Debug.Log("Player within range of beacon " + i);
+
                     //  Compare Player Movement Data with Creature Beacon Expected Movement Data
+                    //      if beacon don't require movement data, consider it correct
+                    if (beaconScript.movementData.Count == 0)
+                    {
+                        movementImitationCorrect = true;
+                    }
+                    else
                     if(playerScript.movementData.Count > 0 && beaconScript.movementData.Count > 0)
                     {
                         if (playerScript.movementData.Equals(beaconScript.movementData))
                         {
-                            imitationCorrect = true;
+                            movementImitationCorrect = true;
                         }
                     }
 
+                    // TODO: This is an OR condition, change to AND later
+
                     //  Compare Player Behavior Data with Monster Expected Behavior Data
+                    //      if beacon don't require behavior data, consider it correct
+                    if (beaconScript.behaviorData.Count == 0)
+                    {
+                        behaviorImitationCorrect = true;
+                    }
+                    else
                     if (playerScript.behaviorData.Count > 0 && beaconScript.behaviorData.Count > 0)
                     {
                         if (playerScript.behaviorData.Equals(beaconScript.behaviorData))
                         {
-                            imitationCorrect = true;
+                            behaviorImitationCorrect = true;
                         }
                     }
                 }
+
+                imitationCorrect = movementImitationCorrect && behaviorImitationCorrect;
             }
         }
 
@@ -146,6 +168,11 @@ public class GameManagerScript : MonoBehaviour
         {
             // Start or Accelerate Monster Cool Down
             monsterScript.timeRemaining -= Time.deltaTime * coolDownAccelerationFactor; // Accelerate cool down
+        }
+        // DEBUG
+        else
+        {
+            Debug.Log("Imitation Correct");
         }
 
         // Win Condition

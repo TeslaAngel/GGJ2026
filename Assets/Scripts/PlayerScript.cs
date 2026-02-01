@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     // Movement Data Record
     public int movementDataRecordLength = 5;
     //  We maintain a list of characters representing player inputs on movement
-    public Queue<char> movementData = new Queue<char>();
+    public List<char> movementData = new List<char>();
 
     public float movementCooldown = 1.0f;
     private float movementCooldownTimer;
@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour
     // Behavior Data Record
     public int behaviorDataRecordLength = 5;
     //  We maintain a list of characters representing player inputs on movement
-    public Queue<char> behaviorData = new Queue<char>();
+    public List<char> behaviorData = new List<char>();
 
     public float behaviorCooldown = 1.0f;
     private float behaviorCooldownTimer;
@@ -68,19 +68,23 @@ public class PlayerScript : MonoBehaviour
         // Movement Record
         if (Input.GetKeyDown(KeyCode.W))
         {
-            movementData.Enqueue('W');
+            movementData.Add('W');
+            movementCooldownTimer = 0.0f;
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            movementData.Enqueue('A');
+            movementData.Add('A');
+            movementCooldownTimer = 0.0f;
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            movementData.Enqueue('S');
+            movementData.Add('S');
+            movementCooldownTimer = 0.0f;
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            movementData.Enqueue('D');
+            movementData.Add('D');
+            movementCooldownTimer = 0.0f;
         }
         // when player haven't moved in another direction for a while, record a 'no movement' character
         else
@@ -88,28 +92,31 @@ public class PlayerScript : MonoBehaviour
             movementCooldownTimer += Time.deltaTime;
             if (movementCooldownTimer >= movementCooldown)
             {
-                movementData.Enqueue('n'); // N for No movement
+                movementData.Add('n'); // N for No movement
                 movementCooldownTimer = 0.0f;
             }
         }
         // Maintain fixed length of movement data record
-        if (movementData.Count > movementDataRecordLength)
+        while (movementData.Count > movementDataRecordLength)
         {
-            movementData.Dequeue();
+            movementData.RemoveAt(0);
         }
 
         // behavior Record #SUBJECT TO CHANGE
         if (Input.GetKeyDown(KeyCode.I))
         {
-            behaviorData.Enqueue('I'); // jump behavior
+            behaviorData.Add('I'); // jump behavior
+            behaviorCooldownTimer = 0.0f;
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
-            behaviorData.Enqueue('J'); // left hand behavior
+            behaviorData.Add('J'); // left hand behavior
+            behaviorCooldownTimer = 0.0f;
         }
         else if (Input.GetKeyDown(KeyCode.L))
         {
-            behaviorData.Enqueue('L'); // right hand behavior
+            behaviorData.Add('L'); // right hand behavior
+            behaviorCooldownTimer = 0.0f;
         }
         // when player haven't performed any behavior for a while, record a 'no behavior' character
         else
@@ -117,14 +124,14 @@ public class PlayerScript : MonoBehaviour
             behaviorCooldownTimer += Time.deltaTime;
             if (behaviorCooldownTimer >= behaviorCooldown)
             {
-                behaviorData.Enqueue('n'); // N for No behavior
+                behaviorData.Add('n'); // N for No behavior
                 behaviorCooldownTimer = 0.0f;
             }
         }
         // Maintain fixed length of behavior data record
-        if (behaviorData.Count > behaviorDataRecordLength)
+        while (behaviorData.Count > behaviorDataRecordLength)
         {
-            behaviorData.Dequeue();
+            behaviorData.RemoveAt(0);
         }
 
         // Mask rolling (from 0 (no mask) to maskCount then to 0, skip any mask that's not enabled)
