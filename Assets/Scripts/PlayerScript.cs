@@ -26,6 +26,10 @@ public class PlayerScript : MonoBehaviour
     public int maskCount = 3;
     public bool[] maskEnable;
 
+    [Space]
+    // Animation
+    public Sprite[] sprites;
+
 
     // Start is called before the first frame update
     void Start()

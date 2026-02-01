@@ -14,7 +14,6 @@ public class GameManagerScript : MonoBehaviour
     private Transform monsterTransform;
     private MonsterCooler monsterScript;
     public float monsterObservationRange = 20.0f;
-    // TODO: Add Monster Data
 
     // Map Generation
     public float mapWidth = 100.0f;
@@ -36,7 +35,8 @@ public class GameManagerScript : MonoBehaviour
         playerScript = playerObject.GetComponent<PlayerScript>();
 
         monsterTransform = monsterObject.transform;
-
+        monsterScript = monsterObject.GetComponent<MonsterCooler>();
+        monsterScript.target = playerTransform;
     }
 
     // Update is called once per frame
@@ -52,8 +52,8 @@ public class GameManagerScript : MonoBehaviour
         {
             // Check Player Imitation
             bool imitationCorrect = true;
-            //  Compare Player Movement Data with Monster Expected Movement Data
-            //  Compare Player Behavior Data with Monster Expected Behavior Data
+            //  TODO Compare Player Movement Data with Monster Expected Movement Data
+            //  TODO Compare Player Behavior Data with Monster Expected Behavior Data
             if (!imitationCorrect)
             {
                 // Start or Accelerate Monster Cool Down
@@ -73,7 +73,7 @@ public class GameManagerScript : MonoBehaviour
         {
             gameWon = true;
             Debug.Log("You Win!");
-            // Add additional win logic here
+            // TODO Add additional win logic here
         }
 
         // Lose Condition
@@ -81,7 +81,7 @@ public class GameManagerScript : MonoBehaviour
         {
             gameLost = true;
             Debug.Log("You Lose!");
-            // Add additional lose logic here
+            // TODO Add additional lose logic here
         }
     }
 }
