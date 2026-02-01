@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
@@ -16,6 +17,7 @@ public class GameManagerScript : MonoBehaviour
     private MonsterCooler monsterScript;
     private float monsterObservationRange;
     public float coolDownAccelerationFactor = 2.0f;
+    private float monsterCoolDownTimerLimit;
 
     [Space]
     // Map Generation
@@ -46,6 +48,7 @@ public class GameManagerScript : MonoBehaviour
         monsterScript = monsterObject.GetComponent<MonsterCooler>();
         monsterScript.target = playerTransform;
         monsterObservationRange = monsterScript.observationRange;
+        monsterCoolDownTimerLimit = monsterScript.timeRemaining;
 
         // Generate Creature Beacons at random positions
         int maxAttemptsPerBeacon = 50;   // prevents infinite loops
@@ -136,7 +139,7 @@ public class GameManagerScript : MonoBehaviour
                     else
                     if(playerScript.movementData.Count > 0 && beaconScript.movementData.Count > 0)
                     {
-                        if (playerScript.movementData.Equals(beaconScript.movementData))
+                        if (playerScript.movementData.SequenceEqual(beaconScript.movementData))
                         {
                             movementImitationCorrect = true;
                         }
@@ -153,7 +156,7 @@ public class GameManagerScript : MonoBehaviour
                     else
                     if (playerScript.behaviorData.Count > 0 && beaconScript.behaviorData.Count > 0)
                     {
-                        if (playerScript.behaviorData.Equals(beaconScript.behaviorData))
+                        if (playerScript.behaviorData.SequenceEqual(beaconScript.behaviorData))
                         {
                             behaviorImitationCorrect = true;
                         }
@@ -169,10 +172,12 @@ public class GameManagerScript : MonoBehaviour
             // Start or Accelerate Monster Cool Down
             monsterScript.timeRemaining -= Time.deltaTime * coolDownAccelerationFactor; // Accelerate cool down
         }
-        // DEBUG
+        // if imitation correct, reset monster cooldown timer
         else
         {
             Debug.Log("Imitation Correct");
+            // should we reset monster time cooldown? maybe not
+            //monsterScript.timeRemaining = monsterCoolDownTimerLimit;
         }
 
         // Win Condition
