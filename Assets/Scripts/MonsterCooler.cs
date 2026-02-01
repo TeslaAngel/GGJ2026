@@ -21,6 +21,9 @@ public class MonsterCooler : MonoBehaviour
     [Space]
     private Animator animator;
 
+    [Space]
+    public SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +64,9 @@ public class MonsterCooler : MonoBehaviour
             // Chase player when timer is out
             navMeshAgent.SetDestination(target.position);
         }
+
+        // Flip sprite based on movement direction
+        spriteRenderer.flipX = transform.right.x < 0f;
     }
 
     public void SetSpeedFast()
