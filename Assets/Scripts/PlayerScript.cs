@@ -15,11 +15,17 @@ public class PlayerScript : MonoBehaviour
     //  We maintain a list of characters representing player inputs on movement
     public Queue<char> movementData = new Queue<char>();
 
+    public float movementCooldown = 1.0f;
+    private float movementCooldownTimer;
+
     [Space]
     // Behavior Data Record
     public int behaviorDataRecordLength = 5;
     //  We maintain a list of characters representing player inputs on movement
     public Queue<char> behaviorData = new Queue<char>();
+
+    public float behaviorCooldown = 1.0f;
+    private float behaviorCooldownTimer;
 
     [Space]
     // Mask Data
@@ -76,6 +82,16 @@ public class PlayerScript : MonoBehaviour
         {
             movementData.Enqueue('D');
         }
+        // when player haven't moved in another direction for a while, record a 'no movement' character
+        else
+        {
+            movementCooldownTimer += Time.deltaTime;
+            if (movementCooldownTimer >= movementCooldown)
+            {
+                movementData.Enqueue('n'); // N for No movement
+                movementCooldownTimer = 0.0f;
+            }
+        }
         // Maintain fixed length of movement data record
         if (movementData.Count > movementDataRecordLength)
         {
@@ -83,17 +99,27 @@ public class PlayerScript : MonoBehaviour
         }
 
         // behavior Record #SUBJECT TO CHANGE
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            behaviorData.Enqueue('J'); // Jump
+            behaviorData.Enqueue('I'); // jump behavior
         }
-        else if (Input.GetKeyDown(KeyCode.F))
+        else if (Input.GetKeyDown(KeyCode.J))
         {
-            behaviorData.Enqueue('A'); // Attack
+            behaviorData.Enqueue('J'); // left hand behavior
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.L))
         {
-            behaviorData.Enqueue('I'); // Interact
+            behaviorData.Enqueue('L'); // right hand behavior
+        }
+        // when player haven't performed any behavior for a while, record a 'no behavior' character
+        else
+        {
+            behaviorCooldownTimer += Time.deltaTime;
+            if (behaviorCooldownTimer >= behaviorCooldown)
+            {
+                behaviorData.Enqueue('n'); // N for No behavior
+                behaviorCooldownTimer = 0.0f;
+            }
         }
         // Maintain fixed length of behavior data record
         if (behaviorData.Count > behaviorDataRecordLength)

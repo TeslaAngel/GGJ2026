@@ -3117,6 +3117,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1381012634
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5507908171113149679, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: m_Name
+      value: CreatureBeaconTest (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
 --- !u!1 &1408239225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3383,6 +3440,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2450908181073278050, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: initBehaviorData.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450908181073278050, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: initBehaviorData.Array.data[0]
+      value: 74
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450908181073278050, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: initBehaviorData.Array.data[1]
+      value: 76
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450908181073278050, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: initBehaviorData.Array.data[2]
+      value: 74
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450908181073278050, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: initBehaviorData.Array.data[3]
+      value: 76
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450908181073278050, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+      propertyPath: initBehaviorData.Array.data[4]
+      value: 74
+      objectReference: {fileID: 0}
     - target: {fileID: 3200635735645704954, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.84
@@ -3443,3 +3524,4 @@ SceneRoots:
   - {fileID: 1109942486}
   - {fileID: 1408239226}
   - {fileID: 6501948350691511122}
+  - {fileID: 1381012634}
