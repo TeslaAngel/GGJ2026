@@ -145,8 +145,6 @@ public class GameManagerScript : MonoBehaviour
                         }
                     }
 
-                    // TODO: This is an OR condition, change to AND later
-
                     //  Compare Player Behavior Data with Monster Expected Behavior Data
                     //      if beacon don't require behavior data, consider it correct
                     if (beaconScript.behaviorData.Count == 0)
@@ -164,7 +162,10 @@ public class GameManagerScript : MonoBehaviour
                     }
                 }
 
-                imitationCorrect = movementImitationCorrect && behaviorImitationCorrect;
+                if(movementImitationCorrect && behaviorImitationCorrect)
+                {
+                    imitationCorrect = true;
+                }
             }
         }
 
