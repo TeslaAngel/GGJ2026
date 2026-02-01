@@ -13,7 +13,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject monsterObject;
     private Transform monsterTransform;
     private MonsterCooler monsterScript;
-    public float monsterObservationRange = 20.0f;
+    private float monsterObservationRange;
 
     // Map Generation
     public float mapWidth = 100.0f;
@@ -37,6 +37,7 @@ public class GameManagerScript : MonoBehaviour
         monsterTransform = monsterObject.transform;
         monsterScript = monsterObject.GetComponent<MonsterCooler>();
         monsterScript.target = playerTransform;
+        monsterObservationRange = monsterScript.observationRange;
     }
 
     // Update is called once per frame

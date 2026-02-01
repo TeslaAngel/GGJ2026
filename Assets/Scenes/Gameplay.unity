@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  verticalSpeedModifier: 0.5
+  verticalSpeedModifier: 1
   movementDataRecordLength: 5
   behaviorDataRecordLength: 5
   maskIndex: 0
@@ -2970,11 +2970,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  observationRange: 5
   fastSpeed: 5
   slowSpeed: 3
   timeRemaining: 10
   timerIsRunning: 0
-  timeText: {fileID: 0}
 --- !u!1 &1354337245
 GameObject:
   m_ObjectHideFlags: 0

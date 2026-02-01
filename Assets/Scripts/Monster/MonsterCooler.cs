@@ -8,22 +8,19 @@ using UnityEngine.AI; // Use this if you are using Text Mesh Pro
 public class MonsterCooler : MonoBehaviour
 {
     public Transform target;
+    public float observationRange = 5f;
     private NavMeshAgent navMeshAgent;
 
     [Space]
-    public float fastSpeed = 5.0f;
-    public float slowSpeed = 3.0f;
+    public float fastSpeed = 8.0f;
+    public float slowSpeed = 3.5f;
 
+    [Space]
     public float timeRemaining = 10f; // The initial countdown time in seconds
-    public bool timerIsRunning = false;
-    public TextMeshProUGUI timeText; // Reference to the Text Mesh Pro UI element
 
     // Start is called before the first frame update
     void Start()
     {
-        // Start the timer automatically when the game starts
-        timerIsRunning = true;
-
         // set navmeshagent
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -31,40 +28,32 @@ public class MonsterCooler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timerIsRunning)
+        if (timeRemaining > 0)
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
+            // when timer haven't runs out yet, the monster don't recognize the player
+            timeRemaining -= Time.deltaTime;
 
-                // Chase player when timer is still running
+            // Chase player until into "observation" range
+            if (Vector3.Distance(transform.position, target.position) > observationRange)
+            {
+                // Slow chase player when out of observation range
+                SetSpeedSlow();
                 navMeshAgent.SetDestination(target.position);
             }
             else
             {
-                Debug.Log("Time has run out!");
-                timeRemaining = 0;
-                timerIsRunning = false;
-                // Add game over or other end-of-countdown logic here
+                // Stop moving when within observation range
+                navMeshAgent.SetDestination(transform.position);
             }
         }
-    }
-
-
-    void DisplayTime(float timeToDisplay)
-    {
-        // Ensure the time is not negative when displaying
-        timeToDisplay += 1;
-
-        // Calculate minutes and seconds
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-
-        if (timeText)
+        else
         {
-            // Format the time string to ensure leading zeros (e.g., 05:00 instead of 5:0)
-            timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            // when timer runs out, the monster recognizes the player and chase like hell
+            SetSpeedFast();
+            timeRemaining = 0;
+
+            // Chase player when timer is out
+            navMeshAgent.SetDestination(target.position);
         }
     }
 
