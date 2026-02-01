@@ -178,8 +178,8 @@ public class GameManagerScript : MonoBehaviour
         else
         {
             Debug.Log("Imitation Correct");
-            // should we reset monster time cooldown? maybe not
-            //monsterScript.timeRemaining = monsterCoolDownTimerLimit;
+            // reset monster time cooldown
+            monsterScript.timeRemaining = monsterCoolDownTimerLimit;
         }
 
         // Win Condition
