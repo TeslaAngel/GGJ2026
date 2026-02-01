@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
     // Movement Data
     public float speed = 5.0f;
     public float verticalSpeedModifier = 0.5f;
+    private Rigidbody2D rigidBody2D;
 
     [Space]
     // Movement Data Record
@@ -42,6 +43,9 @@ public class PlayerScript : MonoBehaviour
         }
         // 0 is no mask, always availables
         maskEnable[0] = true;
+
+        // Rigidbody
+        rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -51,8 +55,9 @@ public class PlayerScript : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical") * verticalSpeedModifier;
 
-        Vector3 movement = new Vector3(horizontalInput, verticalInput, 0);
-        transform.Translate(movement * speed * Time.deltaTime);
+        Vector3 movement = new Vector2(horizontalInput, verticalInput);
+        //transform.Translate(movement * speed * Time.deltaTime);
+        rigidBody2D.velocity = movement * speed;
 
         // Movement Record
         if (Input.GetKeyDown(KeyCode.W))
