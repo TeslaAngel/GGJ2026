@@ -45,7 +45,7 @@ public class PlayerScript : MonoBehaviour
     {
         // init & enable all masks
         maskEnable = new bool[maskCount+1];
-        for (int i = 0; i < maskCount; i++)
+        for (int i = 0; i < maskCount+1; i++)
         {
             maskEnable[i] = true;
         }
@@ -179,7 +179,7 @@ public class PlayerScript : MonoBehaviour
 
             do
             {
-                maskIndex = (maskIndex + 1) % maskEnable.Length;
+                maskIndex = (maskIndex + 1) % (maskEnable.Length);
                 // sync changes to animator
                 animator.SetInteger("MaskIndex", maskIndex);
                 if (maskEnable[maskIndex])

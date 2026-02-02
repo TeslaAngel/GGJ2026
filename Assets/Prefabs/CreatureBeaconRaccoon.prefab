@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3200635735645704954}
   - component: {fileID: 2450908181073278050}
   m_Layer: 0
-  m_Name: CreatureBeaconTest
+  m_Name: CreatureBeaconRaccoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,8 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 3
-  maskIndex: 1
+  maskIndex: 3
   activeDuration: 5
+  creaturePrefab: {fileID: 5806574795102603143, guid: b399d8a897a00534e85342d2f51b2e46, type: 3}
+  creatureNum: 8
   behaviorData: 4a004c004a004c004a00
   movementData: 
 --- !u!1 &5948356562721763224
@@ -66,7 +68,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3029095726296745338
 Transform:
   m_ObjectHideFlags: 0
