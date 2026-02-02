@@ -19,7 +19,7 @@ public class CreatureMovement : MonoBehaviour
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
         //playerTarget = GameObject.FindGameObjectWithTag("Player")?.transform; // Find the player by tag
         startPosition = transform.position;             // Store the initial position
         timer = wanderTimer;                            // Initialize the timer

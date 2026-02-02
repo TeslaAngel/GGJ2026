@@ -12424,10 +12424,12 @@ MonoBehaviour:
   coolDownAccelerationFactor: 2
   mapWidth: 30
   mapHeight: 20
-  numberOfCreatureBeacons: 3
+  numberOfCreatureBeacons: 5
   minDistanceBetweenBeacons: 5
   creatureBeaconPrefabs:
   - {fileID: 5507908171113149679, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
+  - {fileID: 5507908171113149679, guid: 051ce26366d52844d95861225597d372, type: 3}
+  - {fileID: 5507908171113149679, guid: 6b7a0a4a5df468b428231d4b77db05fb, type: 3}
   winTimerLimit: 120
   winTimer: 60
   gameWon: 0
