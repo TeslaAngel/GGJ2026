@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         // Use the name of your game scene
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Gameplay 1");
     }
 
     // Call this method to quit the application (only works in a build)
