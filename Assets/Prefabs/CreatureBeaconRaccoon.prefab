@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 3
-  maskIndex: 1
+  maskIndex: 3
   activeDuration: 5
   creaturePrefab: {fileID: 5806574795102603143, guid: b399d8a897a00534e85342d2f51b2e46, type: 3}
   creatureNum: 8
