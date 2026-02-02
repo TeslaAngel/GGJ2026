@@ -105,8 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   observationRange: 5
-  fastSpeed: 10
-  slowSpeed: 6
+  fastSpeed: 8
+  slowSpeed: 5
   timeRemaining: 10
   spriteRenderer: {fileID: 7332511477831483312}
 --- !u!195 &3140815430972444814

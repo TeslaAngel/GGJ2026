@@ -32,7 +32,7 @@ public class GameManagerScript : MonoBehaviour
     private List<GameObject> activeCreatureBeacons = new List<GameObject>();
 
     [Space]
-    public float winTimerLimit = 180.0f; // 3-1 minutes to win
+    public float winTimerLimit = 120.0f; // 2-1 minutes to win
     public float winTimer = 60.0f;
 
     [Space]
@@ -115,20 +115,21 @@ public class GameManagerScript : MonoBehaviour
 
         // If player made a mistake, accelerate monster cool down
         bool imitationCorrect = false;
-        if (distancePlayerMonster <= monsterObservationRange)
+        // Check Player Imitation with every beacon in range
+        for (int i = 0; i < activeCreatureBeacons.Count; i++)
         {
-            // Check Player Imitation with every beacon in range
-            for (int i = 0; i < activeCreatureBeacons.Count; i++)
-            {
-                bool movementImitationCorrect = false;
-                bool behaviorImitationCorrect = false;
+            bool movementImitationCorrect = false;
+            bool behaviorImitationCorrect = false;
 
-                float distancePlayerBeacon = Vector3.Distance(playerObject.transform.position, activeCreatureBeacons[i].transform.position);
-                CreatureBeaconScript beaconScript = activeCreatureBeacons[i].GetComponent<CreatureBeaconScript>();
+            float distancePlayerBeacon = Vector3.Distance(playerObject.transform.position, activeCreatureBeacons[i].transform.position);
+            CreatureBeaconScript beaconScript = activeCreatureBeacons[i].GetComponent<CreatureBeaconScript>();
+
+            if (distancePlayerMonster <= monsterObservationRange)
+            {
                 if (distancePlayerBeacon <= beaconScript.range && playerScript.maskIndex == beaconScript.maskIndex)
                 {
                     //DEBUG
-                    Debug.Log("Player within range of beacon " + i);
+                    //Debug.Log("Player within range of beacon " + i);
 
                     //  Compare Player Movement Data with Creature Beacon Expected Movement Data
                     //      if beacon don't require movement data, consider it correct
@@ -137,7 +138,7 @@ public class GameManagerScript : MonoBehaviour
                         movementImitationCorrect = true;
                     }
                     else
-                    if(playerScript.movementData.Count > 0 && beaconScript.movementData.Count > 0)
+                    if (playerScript.movementData.Count > 0 && beaconScript.movementData.Count > 0)
                     {
                         if (playerScript.movementData.SequenceEqual(beaconScript.movementData))
                         {
@@ -154,7 +155,7 @@ public class GameManagerScript : MonoBehaviour
                     else
                     if (playerScript.behaviorData.Count > 0 && beaconScript.behaviorData.Count > 0)
                     {
-                        Debug.Log("Comparing Player Behavior with Beacon Behavior");
+                        //Debug.Log("Comparing Player Behavior with Beacon Behavior");
                         if (playerScript.behaviorData.SequenceEqual(beaconScript.behaviorData))
                         {
                             behaviorImitationCorrect = true;
@@ -162,9 +163,11 @@ public class GameManagerScript : MonoBehaviour
                     }
                 }
 
-                if(movementImitationCorrect && behaviorImitationCorrect)
+                if (movementImitationCorrect && behaviorImitationCorrect && beaconScript.activeDuration > 0)
                 {
                     imitationCorrect = true;
+                    beaconScript.activeDuration -= Time.deltaTime; // decrease active duration
+                    break; // no need to check other beacons
                 }
             }
         }
@@ -178,7 +181,7 @@ public class GameManagerScript : MonoBehaviour
         else
         {
             Debug.Log("Imitation Correct");
-            // reset monster time cooldown
+            // reset monster time cooldown #SUBJECT TO CHANGE
             monsterScript.timeRemaining = monsterCoolDownTimerLimit;
         }
 
@@ -192,11 +195,17 @@ public class GameManagerScript : MonoBehaviour
         }
 
         // Lose Condition
+        //  condition 1: if you get caught by the monster (handled in MonsterCooler.cs)
         if (monsterScript.timeRemaining <= 0 && !gameLost)
         {
-            gameLost = true;
-            Debug.Log("You Lose!");
-            // TODO Add additional lose logic here
+            if(distancePlayerMonster <= 2f) // caught distance threshold
+            {
+                gameLost = true;
+                Debug.Log("You Lose!");
+                // TODO Add additional lose logic here
+            }
         }
+
+
     }
 }

@@ -12428,7 +12428,7 @@ MonoBehaviour:
   minDistanceBetweenBeacons: 5
   creatureBeaconPrefabs:
   - {fileID: 5507908171113149679, guid: a2ea114d25998b44aa5a9b7be7371aaf, type: 3}
-  winTimerLimit: 180
+  winTimerLimit: 120
   winTimer: 60
   gameWon: 0
   gameLost: 0
@@ -12743,6 +12743,14 @@ PrefabInstance:
     - target: {fileID: 3089361384515987938, guid: ddd51a18c51fac64796b8474fe19c717, type: 3}
       propertyPath: m_Name
       value: Monster
+      objectReference: {fileID: 0}
+    - target: {fileID: 4887040126447713405, guid: ddd51a18c51fac64796b8474fe19c717, type: 3}
+      propertyPath: fastSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4887040126447713405, guid: ddd51a18c51fac64796b8474fe19c717, type: 3}
+      propertyPath: slowSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
