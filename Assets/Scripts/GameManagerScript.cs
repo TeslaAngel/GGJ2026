@@ -203,6 +203,8 @@ public class GameManagerScript : MonoBehaviour
                 gameLost = true;
                 Debug.Log("You Lose!");
                 // TODO Add additional lose logic here
+
+                FindObjectOfType<CameraScript>().Shake(0.3f, 0.5f);
             }
         }
 
