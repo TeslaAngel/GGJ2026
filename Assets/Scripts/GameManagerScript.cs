@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -192,7 +193,8 @@ public class GameManagerScript : MonoBehaviour
             gameWon = true;
             Debug.Log("You Win!");
             // TODO Add additional win logic here
-        }
+            SceneManager.LoadScene("YouWinScreen");
+        }   
 
         // Lose Condition
         //  condition 1: if you get caught by the monster (handled in MonsterCooler.cs)
@@ -209,6 +211,7 @@ public class GameManagerScript : MonoBehaviour
                 gameLost = true;
                 Debug.Log("You Lose!");
                 // TODO Add additional lose logic here
+                SceneManager.LoadScene("TryAgainPage");
 
                 FindObjectOfType<CameraScript>().Shake(0.3f, 0.5f);
             }

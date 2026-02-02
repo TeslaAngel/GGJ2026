@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TryAgainPage.unity
     guid: fcd7d6058ae0bea4a82c37d970616bea
+  - enabled: 1
+    path: Assets/Scenes/Gameplay.unity
+    guid: c731dfebe9a86204a9075718636a365b
+  - enabled: 1
+    path: Assets/Scenes/Gameplay 1.unity
+    guid: a2d98ad7e4ac11e49a771e240e5d220e
+  - enabled: 1
+    path: Assets/Scenes/NavmeshPlusSampleTilemap.unity
+    guid: f643308f5c409a746807add9cf7c62ff
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects: {}
