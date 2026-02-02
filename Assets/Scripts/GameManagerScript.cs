@@ -32,8 +32,8 @@ public class GameManagerScript : MonoBehaviour
     private List<GameObject> activeCreatureBeacons = new List<GameObject>();
 
     [Space]
-    public float winTimerLimit = 120.0f; // 2-1 minutes to win
-    public float winTimer = 60.0f;
+    public float winTimerLimit = 60f; // 1-0.5 minutes to win
+    public float winTimer = 30f;
 
     [Space]
     public bool gameWon = false;
@@ -199,6 +199,12 @@ public class GameManagerScript : MonoBehaviour
         if (monsterScript.timeRemaining <= 0 && !gameLost)
         {
             if(distancePlayerMonster <= 2f) // caught distance threshold
+            {
+                winTimer -= Time.deltaTime*11f; // reduce win timer
+                FindObjectOfType<CameraScript>().Shake(0.1f, 0.1f);
+            }
+
+            if(winTimer <= 0)
             {
                 gameLost = true;
                 Debug.Log("You Lose!");
