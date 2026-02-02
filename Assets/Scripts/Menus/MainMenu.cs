@@ -33,6 +33,6 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Game Quit"); // Log for testing in the editor
-        EditorApplication.isPlaying = false;
+        //EditorApplication.isPlaying = false;
     }
 }
